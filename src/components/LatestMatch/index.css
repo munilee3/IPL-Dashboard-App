@@ -1,0 +1,78 @@
+.latest-match-container {
+  background-color: #0f172a;
+  width: 100%;
+  border-radius: 15px;
+}
+.latest-match-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+.match-vanue {
+  width: 60%;
+}
+.match-info {
+  padding: 20px;
+  padding-top: 10px;
+}
+.line-style {
+  border: 1px solid #475569;
+}
+.team {
+  font-family: Bree Serif;
+  font-size: 25px;
+  color: #ffffff;
+  font-weight: 500;
+}
+.team-info-heading {
+  font-family: Bree Serif;
+  font-size: 18px;
+  color: #ffffff;
+}
+.match-vanue-info {
+  font-family: Bree Serif;
+  font-size: 15px;
+  color: #ffffff;
+}
+.team-info {
+  font-family: Bree Serif;
+  font-size: 15px;
+  color: #ffffff;
+}
+.competing-team-logo {
+  width: 90px;
+  height: 100px;
+}
+@media screen and (min-width: 768px) {
+  .latest-match-container {
+    display: flex;
+    width: 100%;
+    padding: 10px;
+  }
+  .line-style {
+    display: none;
+  }
+  .team-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+  }
+  .team-info-heading {
+    text-align: end;
+  }
+  .competing-team-logo {
+    width: 230px;
+    height: 250px;
+  }
+  .latest-match-details {
+    width: 80%;
+  }
+  .match-info {
+    width: 50%;
+  }
+  .team {
+    font-size: 40px;
+  }
+}
