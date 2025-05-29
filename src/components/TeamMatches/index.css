@@ -49,3 +49,18 @@
   width: 100%;
   margin-top: 40px;
 }
+.back-button {
+  border: none;
+  border-radius: 5px;
+  padding: 5px 15px;
+  margin-bottom: 20px;
+  font-size: 17px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.back-button-link {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  text-decoration: none;
+}

@@ -1,4 +1,6 @@
 import {Component} from 'react'
+import {PieChart, Pie, Legend, Cell, ResponsiveContainer} from 'recharts'
+import {Link} from 'react-router-dom'
 import Loader from 'react-loader-spinner'
 import LatestMatch from '../LatestMatch'
 import MatchCard from '../MatchCard'
@@ -48,21 +50,47 @@ class TeamMatches extends Component {
     })
   }
 
+  getMatchStatusSummary = matches => {
+    const summary = matches.reduce((acc, match) => {
+      const status = match.match_status || 'Unknown'
+      acc[status] = (acc[status] || 0) + 1
+      return acc
+    }, {})
+
+    const expectedStatuses = ['Won', 'Lost', 'Draw']
+    return expectedStatuses.map(status => ({
+      status,
+      count: summary[status] || 0,
+    }))
+  }
+
   render() {
     const {isLoading, backgroundClassName} = this.state
     const {getTeamMatchesList} = this.state
-    const {latestMatchDetails, recentMatches, teamBannerUrl} =
-      getTeamMatchesList
-    console.log(latestMatchDetails)
-    console.log(recentMatches)
+    const {
+      latestMatchDetails,
+      recentMatches = [],
+      teamBannerUrl,
+    } = getTeamMatchesList
+
+    const chartData = this.getMatchStatusSummary(recentMatches)
+
     return (
-      <div className={`${backgroundClassName} team-matches`}>
+      <div
+        className={`${backgroundClassName} team-matches`}
+        data-testid="loader"
+      >
         {isLoading ? (
-          <div testid="loader">
+          <div data-testid="loader">
             <Loader type="Oval" color="#ffffff" height={50} width={50} />
           </div>
         ) : (
           <div className="team-matche-info">
+            <Link to={`/`} className="back-button-link">
+              <button type="button" className="back-button">
+                Back
+              </button>
+            </Link>
             <img
               src={teamBannerUrl}
               alt="team banner"
@@ -78,6 +106,32 @@ class TeamMatches extends Component {
                 <MatchCard key={eachMatch.id} matchDetails={eachMatch} />
               ))}
             </ul>
+            <h1 className="latest-matches-text">Statistics</h1>
+            <ResponsiveContainer width="60%" height={300}>
+              <PieChart>
+                <Pie
+                  cx="70%"
+                  cy="40%"
+                  data={chartData}
+                  startAngle={0}
+                  endAngle={360}
+                  innerRadius="40%"
+                  outerRadius="70%"
+                  dataKey="count"
+                  nameKey="status"
+                >
+                  <Cell name="Won" fill="#18ed66" />
+                  <Cell name="Lost" fill="#e31a1a" />
+                  <Cell name="Draw" fill="gray" />
+                </Pie>
+                <Legend
+                  iconType="circle"
+                  layout="vertical"
+                  verticalAlign="middle"
+                  align="right"
+                />
+              </PieChart>
+            </ResponsiveContainer>
           </div>
         )}
       </div>
